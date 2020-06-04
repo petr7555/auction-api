@@ -100,7 +100,8 @@ async fn main() -> std::io::Result<()> {
         initial_data(&conn).await;
     }
 
-    let bind = "0.0.0.0:8080";
+    let port = std::env::var("PORT").unwrap_or("8080".to_string());
+    let bind = format!("0.0.0.0:{}", port);
 
     HttpServer::new(move || {
         App::new()
